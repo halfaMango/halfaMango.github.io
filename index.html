@@ -1,87 +1,682 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal homepage of Weide Chen, master's student at Sun Yat-sen University.">
+    <title>Weide Chen | Personal Homepage</title>
     <style>
-        .red-text{
-            color: rgb(223, 100, 100);
+        :root {
+            --lavender-50: #fbf8ff;
+            --lavender-100: #f2ebff;
+            --lavender-200: #e3d5ff;
+            --lavender-300: #c9b6f2;
+            --lavender-600: #7652b8;
+            --lavender-700: #5d3f98;
+            --ink: #252136c8;
+            --muted: #665f79;
+            --line: rgba(118, 82, 184, 0.18);
+            --white: #ffffff;
+            --mint: #FFF8D9;
+            --rose: #ffe5ee;
+            --shadow: 0 22px 60px rgba(65, 46, 105, 0.12);
         }
-        p {
-            font-family: '仿宋','FangSong',serif;
-            font-size: 25;
+
+        * {
+            box-sizing: border-box;
         }
-        .container {
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at top left, rgba(201, 182, 242, 0.42), transparent 34rem),
+                linear-gradient(135deg, var(--lavender-50) 0%, #ffffff 46%, #f8fbff 100%);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            line-height: 1.7;
+        }
+
+        a {
+            color: var(--lavender-700);
+            text-decoration: none;
+            font-weight: 650;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            text-underline-offset: 0.22em;
+        }
+
+        .page {
+            width: min(1120px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 28px 0 64px;
+        }
+
+        .site-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 12px 0 34px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--ink);
+            font-weight: 760;
+            letter-spacing: 0;
+        }
+
+        .brand-mark {
+            display: grid;
+            width: 40px;
+            height: 40px;
+            place-items: center;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--white);
+            box-shadow: 0 10px 24px rgba(93, 63, 152, 0.08);
+            overflow: hidden;
+            padding: 4px;
+        }
+
+        .brand-logo {
+            display: block;
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+            object-position: center;
+        }
+
+        .brand-logo-fallback {
+            color: var(--lavender-700);
+            font-weight: 850;
+        }
+
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .nav a {
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .nav a:hover {
+            background: rgba(118, 82, 184, 0.09);
+            color: var(--lavender-700);
+            text-decoration: none;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(250px, 0.58fr) minmax(0, 1.42fr);
+            gap: 34px;
+            align-items: stretch;
+            min-height: 500px;
+        }
+
+        .portrait-panel,
+        .intro-panel {
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.76);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(18px);
+        }
+
+        .portrait-panel {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .portrait-wrap {
             position: relative;
+            padding: 18px 18px 18px;
+            background: linear-gradient(160deg, var(--lavender-100), #ffffff);
         }
-        .image {
-            float: left; /* 或者使用 right */
-            width: 125px;
-            height: 170px;
+
+        .portrait {
+            display: block;
+            width: min(100%, 280px);
+            height: auto;
+            object-fit: contain;
+            object-position: center;
+            background: #ffffff;
+            border-radius: 8px;
+            filter: saturate(1.03);
+            margin: 0 auto;
+            max-height: 280px;
         }
-        .text {
-            margin-left: 135px; /* 图片宽度加一些边距 */
-            font-family: '仿宋','FangSong',serif;
-            font-size: 40px;
+
+        .portrait-caption {
+            display: grid;
+            gap: 20px;
+            padding: 14px 20px 20px;
+            background: var(--white);
         }
-        .text_{
-            margin-left:135px;
-            font-family: '仿宋','FangSong',serif;
-            font-size: 25;
+
+        .portrait-contact {
+            display: grid;
+            gap: 14px;
+            padding: 28px 20px 24px;
+            background: var(--white);
         }
-        .text_a{
-            font-family: '仿宋','FangSong',serif;
-            font-size: 25px;        }
-        ul li {
-        text-align: justify; /* 文本两端对齐，类似于p标签 */
-        font-family: '仿宋','FangSong',serif;
-        font-size: 25;
-    }
+
+        .status-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            min-height: 30px;
+            padding: 5px 10px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: var(--lavender-50);
+            color: var(--lavender-700);
+            font-size: 13px;
+            font-weight: 750;
+        }
+
+        .intro-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: clamp(28px, 5vw, 58px);
+        }
+
+        .eyebrow {
+            margin: 0 0 12px;
+            color: var(--lavender-700);
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0;
+            max-width: 760px;
+            font-size: clamp(42px, 7vw, 76px);
+            line-height: 0.95;
+            letter-spacing: 0;
+        }
+
+        .chinese-name {
+            display: block;
+            margin-top: 12px;
+            color: var(--lavender-600);
+            font-size: clamp(25px, 3.8vw, 40px);
+            font-weight: 760;
+        }
+
+        .lead {
+            margin: 28px 0 0;
+            max-width: 760px;
+            color: var(--muted);
+            font-size: clamp(17px, 2vw, 20px);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 34px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            font-weight: 800;
+        }
+
+        .button.primary {
+            background: var(--lavender-700);
+            color: var(--white);
+            border-color: var(--lavender-700);
+        }
+
+        .button.secondary {
+            background: var(--white);
+            color: var(--lavender-700);
+        }
+
+        main {
+            display: grid;
+            gap: 26px;
+            margin-top: 30px;
+        }
+
+        .section {
+            padding: clamp(24px, 4vw, 34px);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.82);
+            box-shadow: 0 16px 44px rgba(65, 46, 105, 0.08);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: clamp(24px, 3vw, 32px);
+            line-height: 1.15;
+            letter-spacing: 0;
+        }
+
+        .section-kicker {
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 750;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .value {
+            overflow-wrap: anywhere;
+            color: var(--ink);
+            font-size: 16px;
+            font-weight: 720;
+        }
+
+        .paper {
+            display: grid;
+            grid-template-columns: minmax(180px, 0.62fr) minmax(0, 1.38fr);
+            gap: 18px;
+            padding: 18px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--lavender-50) 100%);
+        }
+
+        .paper + .paper {
+            margin-top: 12px;
+        }
+
+        .paper-body {
+            display: grid;
+            gap: 12px;
+            align-content: start;
+            padding-left: 36px;
+            transform: translateX(36px);
+        }
+
+        .paper-figure {
+            display: grid;
+            place-items: center;
+            min-height: 160px;
+            overflow: hidden;
+            transform: translateX(25px);
+        }
+
+        .paper-image {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            max-height: 160px;
+        }
+
+        .paper-title {
+            margin: 0;
+            font-size: clamp(20px, 2.4vw, 25px);
+            line-height: 1.3;
+        }
+
+        .authors,
+        .paper-links {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .research-inline {
+            display: grid;
+            gap: 10px;
+            margin-top: 26px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(118, 82, 184, 0.12);
+        }
+
+        .research-inline .section-kicker {
+            margin-bottom: 2px;
+            color: var(--ink);
+            font-size: 18px;
+            font-weight: 850;
+            text-transform: none;
+        }
+
+        .research-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .research-chip {
+            display: inline-flex;
+            align-items: center;
+            min-height: 32px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: var(--lavender-50);
+            color: var(--lavender-700);
+            font-size: 13px;
+            font-weight: 750;
+        }
+
+        .contact-list {
+            display: grid;
+            gap: 14px;
+        }
+
+        .contact-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .contact-icon {
+            flex: 0 0 auto;
+            width: 16px;
+            height: 16px;
+            color: var(--lavender-700);
+            margin-top: 2px;
+        }
+
+        .contact-text {
+            min-width: 0;
+        }
+
+        .contact-link {
+            color: inherit;
+            font-weight: 650;
+        }
+
+        footer {
+            padding-top: 28px;
+            color: var(--muted);
+            font-size: 14px;
+            text-align: center;
+        }
+
+        @media (max-width: 860px) {
+            .page {
+                width: min(100% - 28px, 720px);
+                padding-top: 18px;
+            }
+
+            .site-header {
+                align-items: flex-start;
+                flex-direction: column;
+                padding-bottom: 22px;
+            }
+
+            .nav {
+                justify-content: flex-start;
+            }
+
+            .hero,
+            .info-grid,
+            .paper {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .paper-body {
+                padding-left: 0;
+                transform: none;
+            }
+
+            .paper-figure {
+                transform: none;
+            }
+
+            .hero {
+                min-height: 0;
+            }
+
+            .portrait-wrap {
+                max-height: none;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .page {
+                width: min(100% - 22px, 460px);
+                padding-bottom: 42px;
+            }
+
+            .nav a {
+                padding-inline: 9px;
+            }
+
+            .intro-panel,
+            .section {
+                padding: 22px;
+            }
+
+            .portrait {
+                aspect-ratio: 3 / 4;
+            }
+
+            .portrait-caption,
+            .paper {
+                padding: 16px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="profilephoto.jpg" alt="" class="image">
-        <p class="text">Weide Chen 陈伟德</p>
-        <p class="text_">Greetings! My name is Weide Chen.
+    <div class="page">
+        <header class="site-header">
+            <a class="brand" href="#top" aria-label="Weide Chen homepage">
+                <span class="brand-mark">
+                    <img class="brand-logo" src="logo.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="brand-logo-fallback" style="display:none;">WC</span>
+                </span>
+                <span>Weide Chen</span>
+            </a>
+            <nav class="nav" aria-label="Primary navigation">
+                <a href="#about">About</a>
+                <a href="#papers">Papers</a>
+                <a href="#research">Research</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </header>
 
-            I am a master's student at School of Intelligent Systems Engineering, Sun Yat-sen University, Shenzhen, Guangdong 518107, China[FVL of SYSU，中山大学 智能工程学院].</a>
-        During my master's degree, I was jointly guided by Professor <a href="https://ise.sysu.edu.cn/teacher/teacher02/1384977.htm">Zhi Jin </a> and <a href="https://cse.sysu.edu.cn/teacher/ChenGang"> Gang Chen</a>. My research group can be accessed from <a href="https://fvl2020.framer.website/">here</a>.
+        <section class="hero" id="top">
+            <aside class="portrait-panel" aria-label="Profile portrait">
+                <div class="portrait-wrap">
+                    <img class="portrait" src="profilephoto.jpg" alt="Portrait of Weide Chen">
+                </div>
+                <div class="portrait-caption">
+                    <div class="status-row">
+                        <span class="tag">Master</span>
+                        <span class="tag">SYSU</span>
+                    </div>
+                    <span class="value">School of Intelligent Systems Engineering, <br>
+                        Sun Yat-sen University</span>
+                </div>
+                <div class="portrait-contact" id="contact">
+                    <span class="label">Contact</span>
+                    <div class="contact-list">
+                        <div class="contact-row">
+                            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M6 8.5A6 6 0 0 1 18 8.5c0 4.2-6 11-6 11s-6-6.8-6-11Z" stroke="currentColor" stroke-width="1.8" />
+                                <circle cx="12" cy="8.5" r="1.8" stroke="currentColor" stroke-width="1.8" />
+                            </svg>
+                            <span class="contact-text">Location: Shenzhen, Guangdong, China</span>
+                        </div>
+
+                        <div class="contact-row">
+                            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="1.8" />
+                                <path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <span class="contact-text">Email: <a class="contact-link" href="https://mail.google.com/mail/?view=cm&fs=1&to=chenwd56@mail2.sysu.edu.cn" target="_blank" rel="noreferrer">chenwd56@mail2.sysu.edu.cn</a></span>
+                        </div>
+
+                        <div class="contact-row">
+                            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M8 18 3 12l5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="m16 6 5 6-5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="m14 4-4 16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                            </svg>
+                            <span class="contact-text">GitHub: <a class="contact-link" href="https://github.com/halfaMango" target="_blank" rel="noreferrer">github.com/halfaMango</a></span>
+                        </div>
+
+                        <div class="contact-row">
+                            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M3 9.2 12 5l9 4.2-9 4.2-9-4.2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                                <path d="M7 11.4v4.1c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-4.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                                <path d="M20 10v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                            </svg>
+                            <span class="contact-text">Google Scholar: <a class="contact-link" href="https://scholar.google.com/citations?user=8ylUSh8AAAAJ&hl=zh-CN" target="_blank" rel="noreferrer">Weide Chen</a></span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="intro-panel" id="about">
+                <p class="eyebrow">Personal Homepage</p>
+                <h1>
+                    Weide Chen
+                    <span class="chinese-name">陈伟德</span>
+                </h1>
+                <p class="lead">
+                    Greetings! I am a master's student at the School of Intelligent Systems Engineering,
+                    Sun Yat-sen University, Shenzhen. <br>
+                    <br>My works focus on 3D computer vision,
+                    static and dynamic scene reconstruction, and 3D AIGC.
+                </p>
+                <p class="lead">
+                    During my master's degree, I am jointly advised by Professor
+                    <a href="https://ise.sysu.edu.cn/teacher/teacher02/1384977.htm" target="_blank" rel="noreferrer">Zhi Jin</a>
+                    and
+                    <a href="https://cse.sysu.edu.cn/teacher/ChenGang" target="_blank" rel="noreferrer">Gang Chen</a>.
+                    My research group is
+                    <a href="https://fvl2020.framer.website/" target="_blank" rel="noreferrer">FVL of SYSU</a>.
+                </p>
+                <div class="research-inline">
+                    <span class="section-kicker">Research Interests</span> 
+                    <div class="research-tags">
+                        <span class="research-chip">3D Computer Vision</span>
+                        <span class="research-chip">Native 3D Generation & Reconstruction</span>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <a class="button primary" href="https://mail.google.com/mail/?view=cm&fs=1&to=chenwd56@mail2.sysu.edu.cn" target="_blank" rel="noreferrer">Email Me</a>
+                    <a class="button secondary" href="#papers">View Papers</a>
+                </div>
+            </div>
+        </section>
+
+        <main>
+            <section class="section" id="papers">
+                <div class="section-title">
+                    <h2>Papers</h2>
+                    <span class="section-kicker">Selected work</span>
+                </div>
+                <article class="paper">
+                    <div class="paper-figure">
+                        <img class="paper-image" src="fastscene+.png" alt="FastScene+ paper preview">
+                    </div>
+                    <div class="paper-body">
+                        <h3 class="paper-title">FastScene+: Fast 3D Scene Generation via Consistency-Guided Panorama Inpainting</h3>
+                        <p class="authors"><strong>Weide Chen</strong>, Yikun Ma, Zhi Jin*</p>
+                        <p class="paper-links">
+                            <span>Paper</span> · <span>GitHub</span>
+                        </p>
+                    </div>
+                </article>
+                <article class="paper">
+                    <div class="paper-figure">
+                        <img class="paper-image" src="forgecad.png" alt="ForgeCAD paper preview">
+                    </div>
+                    <div class="paper-body">
+                        <h3 class="paper-title">ForgeCAD: Reformulating Drawings-to-CAD Generation as a Symbolic Routing Task</h3>
+                        <p class="authors">Shurui Liu, Yihao Guo, <strong>Weide Chen</strong>, Donghao Wu, Ancong Wu ✉</p>
+                        <p class="paper-links">
+                            <span>Paper</span> · <span>GitHub</span>
+                        </p>
+                    </div>
+                </article>
+                <article class="paper">
+                    <div class="paper-figure">
+                        <img class="paper-image" src="drawingsdreamer.png" alt="DrawingsDreamer paper preview">
+                    </div>
+                    <div class="paper-body">
+                        <h3 class="paper-title">DrawingsDreamer: A Unified Multi-View Engineering Drawings Generation Model</h3>
+                        <p class="authors">Shurui Liu, <strong>Weide Chen</strong>, Changwang Yi, Ancong Wu ✉</p>
+                        <p class="paper-links">
+                            <span>Paper</span> · <span>GitHub</span>
+                        </p>
+                    </div>
+                </article>
+                                <article class="paper">
+                    <div class="paper-figure">
+                        <img class="paper-image" src="hidigen.png" alt="HiDiGen paper preview">
+                    </div>
+                    <div class="paper-body">
+                        <h3 class="paper-title">HiDiGen: Hierarchical Diffusion for B-Rep Generation with Explicit Topological Constraints</h3>
+                        <p class="authors">Shurui Liu, Weide Chen, Ancong Wu ✉</p>
+                        <p class="paper-links">
+                            <span>Paper</span> · <span>GitHub</span>
+                        </p>
+                    </div>
+                </article>
+            </section>
 
 
+        </main>
 
+        <footer>
+            <span>© 2026 Weide Chen. Built with GitHub Pages.</span>
+        </footer>
     </div>
-    <p>&nbsp;&nbsp;Please contact me via,<br>
-        <span class='red-text'>&nbsp;&nbsp;Phone:   </span>(86) 18358022630        
-        <span class = 'red-text'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:   </span>chenwd56@mail2.sysu.edu.cn<br><p>
-           
-
-
-    <p class = 'text_a'>Publications</p>
-        <ul>
-            <li>
-
-        SDD-GS: Scene-Guided Diffusion Prior for Decoupling Static and Dynamic Gaussian Reconstruction in Driving Scenes<br>
-        <strong>Weide Chen</strong>, Zhi Jin*.<br>
-        [Paper][Github]<br></li>
-    </p>
-
-        </ul>
-
-    <P class = 'text_a'>News</P>
-    <ul>
-        <li>
-            [2024.04]We have submitted a report focused on Emergency Management to SOG of SYSU.
-[Paper]<br>        </li>
-<li>
-    [2023.11]We have submitted a report focused on Public Opinion Monitoring to SOG of SYSU.
-    [Paper]
-</li>
-
-<li>
-    [2022.12]I obtained a national scholarship from Ministry of Education of the People’s Republic of China.
-    [Link]
-</li>
-
-
-    </ul>
 </body>
 </html>
